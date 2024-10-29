@@ -50,3 +50,29 @@ connector-sql = {path = "./connector-sql" }
 ```
 
 После этого ваш коннектор станет доступен в web версии
+
+
+# Описание
+
+## connector-proxy
+
+Сервис для создания собственных коннтеров 
+
+
+## spiffworkflow-worker
+
+Сервис для запуска задачь из кода python
+
+
+## spiffworkflow
+
+В папке src ледит основной bac-end 
+
+
+# Dockers
+
+dev.docker-compose.yml - поднимается фронт и база для локальной разработки
+
+Prod.docker-compose copy.yml -поднимается все необходимое из локальный файлов
+
+Ofichial.docker-compose.yml - поднимается все из готовый образов
