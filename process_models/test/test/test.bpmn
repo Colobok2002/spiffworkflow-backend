@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_test_amy25ut" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ggkvph</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_1xr3qvy">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="sql/SQl" resultVariable="test">
+          <spiffworkflow:parameters />
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ggkvph</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uh1o91</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0ggkvph" sourceRef="StartEvent_1" targetRef="Activity_1xr3qvy" />
+    <bpmn:manualTask id="Activity_0igy3xs">
+      <bpmn:extensionElements>
+        <spiffworkflow:instructionsForEndUser>Результат {{ result }} </spiffworkflow:instructionsForEndUser>
+        <spiffworkflow:properties>
+          <spiffworkflow:property name="formJsonSchemaFilename" value="" />
+          <spiffworkflow:property name="formUiSchemaFilename" value="test-uischema.json" />
+        </spiffworkflow:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1nv2au0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jn4c1q</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:sequenceFlow id="Flow_1uh1o91" sourceRef="Activity_1xr3qvy" targetRef="Activity_050dnd8" />
+    <bpmn:scriptTask id="Activity_050dnd8">
+      <bpmn:incoming>Flow_1uh1o91</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nv2au0</bpmn:outgoing>
+      <bpmn:script>result = test['body']</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1nv2au0" sourceRef="Activity_050dnd8" targetRef="Activity_0igy3xs" />
+    <bpmn:endEvent id="Event_1dj5lfq">
+      <bpmn:incoming>Flow_0jn4c1q</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0jn4c1q" sourceRef="Activity_0igy3xs" targetRef="Event_1dj5lfq" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_test_amy25ut">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="-78" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1urp6hq_di" bpmnElement="Activity_1xr3qvy">
+        <dc:Bounds x="60" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u4c338_di" bpmnElement="Activity_0igy3xs">
+        <dc:Bounds x="500" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05lkpng_di" bpmnElement="Activity_050dnd8">
+        <dc:Bounds x="270" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1dj5lfq_di" bpmnElement="Event_1dj5lfq">
+        <dc:Bounds x="732" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ggkvph_di" bpmnElement="Flow_0ggkvph">
+        <di:waypoint x="-42" y="177" />
+        <di:waypoint x="60" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uh1o91_di" bpmnElement="Flow_1uh1o91">
+        <di:waypoint x="160" y="177" />
+        <di:waypoint x="270" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nv2au0_di" bpmnElement="Flow_1nv2au0">
+        <di:waypoint x="370" y="177" />
+        <di:waypoint x="500" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jn4c1q_di" bpmnElement="Flow_0jn4c1q">
+        <di:waypoint x="600" y="177" />
+        <di:waypoint x="732" y="177" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

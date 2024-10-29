@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:spiffworkflow="http://spiffworkflow.org/bpmn/schema/1.0/core" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_96f6665" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-dev">
+  <bpmn:process id="Process_test233_9knu6a0" isExecutable="true">
+    <bpmn:ioSpecification>
+      <bpmn:inputSet />
+      <bpmn:outputSet />
+    </bpmn:ioSpecification>
+    <bpmn:endEvent id="EndEvent_1">
+      <bpmn:incoming>Flow_0s9p2za</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0s9p2za" sourceRef="Activity_19exf2m" targetRef="EndEvent_1" />
+    <bpmn:manualTask id="Activity_19exf2m">
+      <bpmn:extensionElements>
+        <spiffworkflow:instructionsForEndUser>**scalar** 
+
+
+```json
+{{ result | tojson }}
+```
+
+
+**all** 
+
+```json
+{{ result_all | tojson }}
+```</spiffworkflow:instructionsForEndUser>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_07i8pa3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0s9p2za</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:scriptTask id="Activity_1o6hqgm">
+      <bpmn:incoming>Flow_11dnei2</bpmn:incoming>
+      <bpmn:outgoing>Flow_08eqqcl</bpmn:outgoing>
+      <bpmn:script>sql_query = "SPIFF_SECRET:test_sql"
+conect_url = "SPIFF_SECRET:test_db"
+
+</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_08eqqcl" sourceRef="Activity_1o6hqgm" targetRef="Activity_0xf2ixb" />
+    <bpmn:serviceTask id="Activity_0xf2ixb">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="sql/SqlScalar" resultVariable="result">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="sql_query" type="str" value="sql_query" />
+            <spiffworkflow:parameter id="conect_url" type="str" value="conect_url" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_08eqqcl</bpmn:incoming>
+      <bpmn:outgoing>Flow_09xjccs</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_09xjccs" sourceRef="Activity_0xf2ixb" targetRef="Activity_1v70emg" />
+    <bpmn:sequenceFlow id="Flow_07i8pa3" sourceRef="Activity_1v70emg" targetRef="Activity_19exf2m" />
+    <bpmn:serviceTask id="Activity_1v70emg">
+      <bpmn:extensionElements>
+        <spiffworkflow:serviceTaskOperator id="sql/SqlAllNew" resultVariable="result_all">
+          <spiffworkflow:parameters>
+            <spiffworkflow:parameter id="sql_query" type="str" value="sql_query" />
+            <spiffworkflow:parameter id="conect_url" type="str" value="conect_url" />
+            <spiffworkflow:parameter id="page" type="str" value="1" />
+            <spiffworkflow:parameter id="size" type="str" value="10" />
+          </spiffworkflow:parameters>
+        </spiffworkflow:serviceTaskOperator>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_09xjccs</bpmn:incoming>
+      <bpmn:outgoing>Flow_07i8pa3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="Event_1gd5ork">
+      <bpmn:outgoing>Flow_11dnei2</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_11dnei2" sourceRef="Event_1gd5ork" targetRef="Activity_1o6hqgm" />
+    <bpmn:textAnnotation id="TextAnnotation_1vvmr8v">
+      <bpmn:text>SqlScalar</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_190ugc6" associationDirection="None" sourceRef="Activity_0xf2ixb" targetRef="TextAnnotation_1vvmr8v" />
+    <bpmn:textAnnotation id="TextAnnotation_0s5iolt">
+      <bpmn:text>SqlAll</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0fbn9v8" associationDirection="None" sourceRef="Activity_1v70emg" targetRef="TextAnnotation_0s5iolt" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_test233_9knu6a0">
+      <bpmndi:BPMNShape id="Event_14za570_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="1162" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17tvczh_di" bpmnElement="Activity_19exf2m">
+        <dc:Bounds x="960" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0eg7wpt_di" bpmnElement="Activity_1o6hqgm">
+        <dc:Bounds x="230" y="240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1gd5ork_di" bpmnElement="Event_1gd5ork">
+        <dc:Bounds x="-148" y="262" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_13rhtel_di" bpmnElement="Activity_0xf2ixb">
+        <dc:Bounds x="490" y="240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_105xq38_di" bpmnElement="Activity_1v70emg">
+        <dc:Bounds x="730" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_190ugc6_di" bpmnElement="Association_190ugc6">
+        <di:waypoint x="506" y="320" />
+        <di:waypoint x="463" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0fbn9v8_di" bpmnElement="Association_0fbn9v8">
+        <di:waypoint x="772" y="330" />
+        <di:waypoint x="763" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1vvmr8v_di" bpmnElement="TextAnnotation_1vvmr8v">
+        <dc:Bounds x="400" y="370" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0s5iolt_di" bpmnElement="TextAnnotation_0s5iolt">
+        <dc:Bounds x="710" y="370" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0s9p2za_di" bpmnElement="Flow_0s9p2za">
+        <di:waypoint x="1010" y="260" />
+        <di:waypoint x="1010" y="219" />
+        <di:waypoint x="1180" y="219" />
+        <di:waypoint x="1180" y="178" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08eqqcl_di" bpmnElement="Flow_08eqqcl">
+        <di:waypoint x="330" y="280" />
+        <di:waypoint x="490" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09xjccs_di" bpmnElement="Flow_09xjccs">
+        <di:waypoint x="590" y="280" />
+        <di:waypoint x="650" y="280" />
+        <di:waypoint x="650" y="290" />
+        <di:waypoint x="730" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07i8pa3_di" bpmnElement="Flow_07i8pa3">
+        <di:waypoint x="830" y="290" />
+        <di:waypoint x="895" y="290" />
+        <di:waypoint x="895" y="300" />
+        <di:waypoint x="960" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11dnei2_di" bpmnElement="Flow_11dnei2">
+        <di:waypoint x="-112" y="280" />
+        <di:waypoint x="230" y="280" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

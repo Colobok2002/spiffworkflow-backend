@@ -1,0 +1,9 @@
+{
+    "description": "",
+    "display_name": "DemoSignal",
+    "exception_notification_addresses": [],
+    "fault_or_suspend_on_exception": "fault",
+    "metadata_extraction_paths": null,
+    "primary_file_name": "demosignal.bpmn",
+    "primary_process_id": "Process_demosignal_xhar2ks"
+}

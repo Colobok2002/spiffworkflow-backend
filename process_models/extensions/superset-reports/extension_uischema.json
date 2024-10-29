@@ -1,0 +1,23 @@
+{
+  "version": "0.1",
+  "ux_elements": [
+    {
+      "label": "Superset Reports",
+      "page": "/superset-reports",
+      "display_location": "header_menu_item"
+    }
+  ],
+  "pages": {
+    "/superset-reports": {
+      "header": "Superset Reports",
+      "components": [
+        {
+          "name": "MarkdownRenderer",
+          "arguments": {
+            "source": "SPIFF_PROCESS_MODEL_FILE:::superset-reports-markdown.md"
+          }
+        }
+      ]
+    }
+  }
+}

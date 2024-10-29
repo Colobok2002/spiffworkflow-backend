@@ -1,0 +1,35 @@
+{
+  "version": "0.1",
+  "ux_elements": [
+    {
+      "label": "Support",
+      "page": "/support",
+      "display_location": "user_profile_item"
+    }
+  ],
+  "pages": {
+    "/support": {
+      "components": [
+        {
+          "name": "MarkdownRenderer",
+          "arguments": {
+            "source": "SPIFF_PROCESS_MODEL_FILE:::support-markdown.md"
+          }
+        },
+        {
+          "name": "CustomForm",
+          "arguments": {
+            "id": "contact-form",
+            "formData": {},
+            "schema": "SPIFF_PROCESS_MODEL_FILE:FROM_JSON:::contact-form-schema.json",
+            "uiSchema": "SPIFF_PROCESS_MODEL_FILE:FROM_JSON:::contact-form-uischema.json"
+          },
+          "on_form_submit": {
+            "api_path": "support",
+            "persistence_level": "full"
+          }
+        }
+      ]
+    }
+  }
+}

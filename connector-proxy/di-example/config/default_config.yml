@@ -1,0 +1,5 @@
+---
+loglevel: debug
+
+notif:
+  url: http://facade-http:4621

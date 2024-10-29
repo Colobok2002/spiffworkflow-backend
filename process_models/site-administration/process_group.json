@@ -1,0 +1,58 @@
+{
+    "admin": false,
+    "description": "",
+    "display_name": "Site Administration",
+    "display_order": 4,
+    "parent_groups": null,
+    "process_groups": [],
+    "process_models": [
+        {
+            "bpmn_version_control_identifier": null,
+            "description": "",
+            "display_name": "anothertest",
+            "display_order": 0,
+            "exception_notification_addresses": [],
+            "fault_or_suspend_on_exception": "fault",
+            "files": [],
+            "id": "site-administration/anothertest",
+            "metadata_extraction_paths": null,
+            "parent_groups": null,
+            "primary_file_name": null,
+            "primary_process_id": null,
+            "process_group": null,
+            "sort_index": "site-administration/anothertest"
+        },
+        {
+            "bpmn_version_control_identifier": null,
+            "description": "Run this process model to apply permissions and user group assignment changes on the site. Data is largely sourced from users_to_groups.dmn and group_permissions.dmn.",
+            "display_name": "Set Permissions",
+            "display_order": 0,
+            "exception_notification_addresses": [],
+            "fault_or_suspend_on_exception": "fault",
+            "files": [],
+            "id": "site-administration/set-permissions",
+            "metadata_extraction_paths": null,
+            "parent_groups": null,
+            "primary_file_name": "permissions.bpmn",
+            "primary_process_id": "set_permissions_process",
+            "process_group": null,
+            "sort_index": "site-administration/set-permissions"
+        },
+        {
+            "bpmn_version_control_identifier": null,
+            "description": "so much testing oh yeah",
+            "display_name": "testing",
+            "display_order": 0,
+            "exception_notification_addresses": [],
+            "fault_or_suspend_on_exception": "fault",
+            "files": [],
+            "id": "site-administration/testing",
+            "metadata_extraction_paths": null,
+            "parent_groups": null,
+            "primary_file_name": "a.bpmn",
+            "primary_process_id": "Process_1g8zid0",
+            "process_group": null,
+            "sort_index": "site-administration/testing"
+        }
+    ]
+}

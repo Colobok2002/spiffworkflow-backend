@@ -1,0 +1,19 @@
+---
+env_id: dev
+
+db:
+  # URL подключения к БД
+  url: postgresql+psycopg2://testpython:rossum@devpg-pg.omnix.it-serv.dev:54332/omnix
+  # Общее кол-во соединений должно быть не менее значения concurrency, установленного для сервиса при запуске
+  pool_size: 5
+  max_overflow: 15
+
+#logstash:
+#  host: logstash.it-serv.dev
+#  port: 5959
+#
+#jaeger:
+#  host: db
+#  port: 6831
+#  attach_log: false
+#  udp_split_oversized_batches: true
