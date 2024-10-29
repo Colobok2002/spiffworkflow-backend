@@ -7,7 +7,18 @@ services:
       PORT0: "${SPIFFWORKFLOW_FRONTEND_PORT:-8001}"
     ports:
       - "${SPIFFWORKFLOW_FRONTEND_PORT:-8001}:${SPIFFWORKFLOW_FRONTEND_PORT:-8001}/tcp"
-
+  
+  db:
+    container_name: db
+    image: mysql:8.0.29
+    environment:
+      - MYSQL_DATABASE=${SPIFFWORKFLOW_BACKEND_DATABASE_NAME:-spiffworkflow_backend_development}
+      - MYSQL_ROOT_PASSWORD=${SPIFFWORKFLOW_BACKEND_MYSQL_ROOT_DATABASE:-my-secret-pw}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+  
   # spiffworkflow-backend:
   #   container_name: spiffworkflow-backend
   #   image: ghcr.io/sartography/spiffworkflow-backend:latest
@@ -52,16 +63,6 @@ services:
   #     timeout: 5s
   #     retries: 20
 
-  db:
-    container_name: db
-    image: mysql:8.0.29
-    environment:
-      - MYSQL_DATABASE=${SPIFFWORKFLOW_BACKEND_DATABASE_NAME:-spiffworkflow_backend_development}
-      - MYSQL_ROOT_PASSWORD=${SPIFFWORKFLOW_BACKEND_MYSQL_ROOT_DATABASE:-my-secret-pw}
-    ports:
-      - "3306:3306"
-    volumes:
-      - db:/var/lib/mysql
 
 volumes:
   db:
