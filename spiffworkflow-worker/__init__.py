@@ -10,6 +10,7 @@ import re
 from typing import Any, Dict
 from pydantic import BaseModel
 import requests
+from di.celery import CeleryDI
 
 
 class RequestMethods:
@@ -216,7 +217,21 @@ class SpiffworkflowWorkerManager:
 
 
 if __name__ == "__main__":
-    sw = SpiffworkflowWorkerManager(
-        process_name="test:demosignal"
-    )
-    sw.start()
+
+    celeryDI = CeleryDI()
+    from di import APPLICATION_CONFIG, APPLICATION_DEFAULT_CONFIG
+    from di.celery import CeleryDI
+
+    di = CeleryDI()
+    di.config.from_yaml(APPLICATION_DEFAULT_CONFIG)
+    di.config.from_yaml(APPLICATION_CONFIG)
+
+    di.init_resources()
+
+    tasks = di.tasks()
+    
+    tasks.enqueue_get_actions_task()
+    # sw = SpiffworkflowWorkerManager(
+    #     process_name="test:demosignal"
+    # )
+    # sw.start()

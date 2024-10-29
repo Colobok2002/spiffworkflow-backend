@@ -11,7 +11,7 @@ from dependency_injector import containers, providers
 from iserv.helpers.pytracelog.handlers import TracerHandler
 from iserv.helpers.pytracelog.trace.celery import enable_tracing
 from kombu import Exchange
-
+from celery_tasks.tasks import CeleryTasks
 from .common import CommonDI
 
 __all__ = ("CeleryDI",)
@@ -76,6 +76,12 @@ class CeleryDI(containers.DeclarativeContainer):
         main=config.app_name,
         broker=config.celery.broker,
         backend=config.celery.backend,
+    )
+
+    tasks = providers.Resource(
+        CeleryTasks,
+        celery=celery,
+        logger=common_di.logger,
     )
 
     _ = providers.Resource(
