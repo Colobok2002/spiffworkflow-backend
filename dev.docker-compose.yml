@@ -18,6 +18,29 @@ services:
       - "3306:3306"
     volumes:
       - db:/var/lib/mysql
+
+  rmq:
+    image: registry.it-serv.dev/hub.docker.com/library/rabbitmq:3.11.7-management
+    environment:
+      - TZ=${TZ}
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+      - RABBITMQ_DEFAULT_VHOST=default
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+  redis:
+    image: registry.it-serv.dev/hub.docker.com/library/redis:7.0.8
+    environment:
+      - TZ=${TZ}
+    ports:
+      - '6379:6379'
+    command:
+      - "redis-server"
+      - "--requirepass"
+      - "admin"
+
   
   # spiffworkflow-backend:
   #   container_name: spiffworkflow-backend
