@@ -21,8 +21,3 @@ APPLICATION_DEFAULT_CONFIG = environ.get(
     'APPLICATION_DEFAULT_CONFIG',
     (Path(__file__).parent / "config" / 'default_config.yml').as_posix()
 )
-
-
-print((Path(__file__).parent / "config" / "config.yml").as_posix(),)
-
-print(APPLICATION_CONFIG)

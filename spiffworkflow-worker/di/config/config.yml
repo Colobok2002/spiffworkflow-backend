@@ -1,8 +1,9 @@
 ---
+loglevel: info
 env_id: dev
 
+exchange: ETL
+
 celery:
-  broker: 'amqp://admin:admin@localhost:5672/celery_pickle'
-  # В качестве backend используем redis:
-  #   https://github.com/celery/celery/issues/4084#issuecomment-1169973131
+  broker: 'amqp://admin:admin@localhost:5672/spiffworkflow_worker'
   backend: 'redis://:admin@localhost:6379/0'

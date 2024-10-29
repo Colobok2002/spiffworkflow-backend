@@ -25,7 +25,7 @@ services:
       - TZ=${TZ}
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
-      - RABBITMQ_DEFAULT_VHOST=default
+      - RABBITMQ_DEFAULT_VHOST=spiffworkflow_worker
     ports:
       - '5672:5672'
       - '15672:15672'

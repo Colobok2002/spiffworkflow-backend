@@ -1,1 +1,9 @@
 
+---
+env_id: dev
+
+celery:
+  broker: 'amqp://admin:admin@localhost:5672/celery_pickle'
+  # В качестве backend используем redis:
+  #   https://github.com/celery/celery/issues/4084#issuecomment-1169973131
+  backend: 'redis://:admin@localhost:6379/0'

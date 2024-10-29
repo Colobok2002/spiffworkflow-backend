@@ -13,7 +13,6 @@ from iserv.helpers.pytracelog.trace.celery import enable_tracing
 from kombu import Exchange
 
 from .common import CommonDI
-from kombu import Queue
 
 __all__ = ("CeleryDI",)
 
@@ -36,12 +35,6 @@ def init_celery_app(main: str, broker: str, backend: str) -> Celery:
         "application/json",
         "application/x-python-serialize",
     ]
-
-    celery.conf.task_queues = (Queue("default", Exchange("default"), routing_key="default"),)
-    celery.conf.task_default_queue = "default"
-    celery.conf.task_default_exchange = "default"
-    celery.conf.task_default_routing_key = "default"
-
     return celery
 
 
