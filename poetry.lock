@@ -2032,6 +2032,27 @@ opentelemetry-semantic-conventions = "0.48b0"
 instruments = ["celery (>=4.0,<6.0)"]
 
 [[package]]
+name = "opentelemetry-instrumentation-sqlalchemy"
+version = "0.48b0"
+description = "OpenTelemetry SQLAlchemy instrumentation"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "opentelemetry_instrumentation_sqlalchemy-0.48b0-py3-none-any.whl", hash = "sha256:625848a34aa5770cb4b1dcdbd95afce4307a0230338711101325261d739f391f"},
+    {file = "opentelemetry_instrumentation_sqlalchemy-0.48b0.tar.gz", hash = "sha256:dbf2d5a755b470e64e5e2762b56f8d56313787e4c7d71a87fe25c33f48eb3493"},
+]
+
+[package.dependencies]
+opentelemetry-api = ">=1.12,<2.0"
+opentelemetry-instrumentation = "0.48b0"
+opentelemetry-semantic-conventions = "0.48b0"
+packaging = ">=21.0"
+wrapt = ">=1.11.2"
+
+[package.extras]
+instruments = ["sqlalchemy"]
+
+[[package]]
 name = "opentelemetry-sdk"
 version = "1.27.0"
 description = "OpenTelemetry Python SDK"
@@ -3940,4 +3961,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<=3.13"
-content-hash = "61d111cf2361704b0003ac3e67f322ac2d8f541728ab3d2268b1d14961f464c1"
+content-hash = "ab0cdfb1e08ba6029e349e8733ff321a9ac3998ef2d285e867d58d7cb99f4a34"

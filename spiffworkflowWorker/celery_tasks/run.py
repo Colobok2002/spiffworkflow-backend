@@ -15,7 +15,4 @@ di.init_resources()
 
 app = di.celery()
 
-
-# celery - A iserv.actions.ctrl.jupyter.tasks.run worker - -autoscale 1, 8 - -loglevel debug
-
-# celery -A spiffworkflow-worker.celery.run  worker --loglevel=info
+# celery -A spiffworkflowWorker.celery_tasks.run  worker --loglevel=info --autoscale 1,8

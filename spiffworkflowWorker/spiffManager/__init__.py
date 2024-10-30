@@ -10,7 +10,6 @@ import re
 from typing import Any, Dict
 from pydantic import BaseModel
 import requests
-from di.celery import CeleryDI
 
 
 class RequestMethods:
@@ -137,37 +136,41 @@ class SpiffworkflowWorkerManager:
     """Менелдер для работы с конкретным процессом
     """
 
-    def __init__(self, process_name: str):
+    def __init__(self, process_name: str, modified_message_name: str = None):
         self.process_name = process_name
         self.sw = SpiffworkflowWorker()
+        self.proc = Process()
+        self.task = Task()
+        self.modified_message_name = modified_message_name
 
-    def start(self):
-        """Запус процесса
-
-        :return: _description_
-        :rtype: _type_
-        """
+    def init_process(self):
         # Инициализируем процесс
-        rout = f"process-instances/{self.process_name}"
-        rData = self.sw.rh.get_json(rout=rout, method=RequestMethods.post)
 
-        proc = Process()
-        proc.id = rData.get("id", None)
         # # {"id": 189, "process_model_identifier": "test/test233", "process_model_display_name": "test233", "process_initiator_id": 1, "start_in_seconds": 1730200470,
         # #     "end_in_seconds": None, "updated_at_in_seconds": 1730200470, "created_at_in_seconds": 1730200470, "status": "not_started", "bpmn_version_control_identifier": None}
 
-        # Зускаем его
-        rout = f"process-instances/{self.process_name}/{proc.id}/run"
+        rout = f"process-instances/{self.process_name}"
         rData = self.sw.rh.get_json(rout=rout, method=RequestMethods.post)
+        self.proc.id = rData.get("id", None)
+
+        return 1
+
+    def start_process(self):
+        # Зускаем его
+
         # {"id": 189, "status": "user_input_required", "process_model_identifier": "test/test233",
         #     "process_model_display_name": "test233", "updated_at_in_seconds": 1730200472, "process_model_uses_queued_execution": false}
 
+        rout = f"process-instances/{self.process_name}/{self.proc.id}/run"
+        self.sw.rh.get_json(rout=rout, method=RequestMethods.post)
+
+        if (self.modified_message_name):
+            self.send_modified_message()
+
+        return 1
+
+    def get_tasks_info(self):
         # Получаем информации по получивщейся задачи
-        rout = f"tasks/{proc.id}?execute_tasks=true"
-        rData = self.sw.rh.get_json(rout=rout)
-        task = Task()
-        task.id = rData.get("task", {}).get("id", None)
-        task.process = proc
 
         # {
         #     "type": "task",
@@ -206,32 +209,51 @@ class SpiffworkflowWorkerManager:
         #     }
         # }
 
-        # Закидыввам сообщение иниализации
-        rout = f"messages/init_message?modified_message_name=init_message"
-        params = {
-            "data": "Hello world"
+        rout = f"tasks/{self.proc.id}?execute_tasks=false"
+        rData = self.sw.rh.get_json(rout=rout)
+
+        self.task.id = rData.get("task", {}).get("id", None)
+        self.task.process = self.proc
+
+        return 1
+
+    def get_task_status(self):
+        rout = f"tasks/{self.proc.id}?execute_tasks=false"
+        rData = self.sw.rh.get_json(rout=rout)
+
+        return rData.get("task", {}).get("state", None)
+
+    def send_modified_message(self):
+
+        if not self.modified_message_name is None:
+            rout = f"messages/init_message?modified_message_name={self.modified_message_name}"
+            params = {
+                "data": "Hello world"
+            }
+
+            self.sw.rh.get_json(rout=rout, method=RequestMethods.post, params=params)
+
+            return 1
+
+        return 0
+
+    def start(self):
+        """Запус процесса
+
+        :return: _description_
+        :rtype: _type_
+        """
+
+        self.init_process()
+        self.start_process()
+        self.get_tasks_info()
+
+        return self.get_task_status()
+
+    def to_dict(self):
+        return {
+            "process_name": self.process_name,
+            "process_id": self.proc.id,
+            "task_id": self.task.id,
+            "message_name": self.modified_message_name
         }
-        rData = self.sw.rh.get_json(rout=rout, method=RequestMethods.post, params=params)
-
-        return rData
-
-
-if __name__ == "__main__":
-
-    celeryDI = CeleryDI()
-    from di import APPLICATION_CONFIG, APPLICATION_DEFAULT_CONFIG
-    from di.celery import CeleryDI
-
-    di = CeleryDI()
-    di.config.from_yaml(APPLICATION_DEFAULT_CONFIG)
-    di.config.from_yaml(APPLICATION_CONFIG)
-
-    di.init_resources()
-
-    tasks = di.tasks()
-    
-    tasks.enqueue_get_actions_task()
-    # sw = SpiffworkflowWorkerManager(
-    #     process_name="test:demosignal"
-    # )
-    # sw.start()

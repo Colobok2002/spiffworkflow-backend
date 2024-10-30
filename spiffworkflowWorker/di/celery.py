@@ -11,7 +11,7 @@ from dependency_injector import containers, providers
 from iserv.helpers.pytracelog.handlers import TracerHandler
 from iserv.helpers.pytracelog.trace.celery import enable_tracing
 from kombu import Exchange
-from celery_tasks.tasks import CeleryTasks
+from spiffworkflowWorker.celery_tasks.tasks import CeleryTasks
 from .common import CommonDI
 
 __all__ = ("CeleryDI",)
